@@ -22,6 +22,7 @@
     <div id="graph"></div>
     <script type="module">
       import { units } from './dist/index.js'
+      import { delay } from './dist/utils.js'
       console.log(`foo: ${units}`)
       const wrapper = d3.select('#graph').graphviz()
       console.log()
@@ -30,7 +31,7 @@
           (async () => {
             await promise
             console.log(`it: ${it}`)
-            await new Promise((resolve) => setTimeout(resolve, 1000))
+            await delay(1000)
             wrapper.renderDot(it)
           })(),
         Promise.resolve(0)
