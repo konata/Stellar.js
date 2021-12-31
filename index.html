@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pointer Flow Graph</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="//d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+    <style>
+      #graph {
+        padding: 10vh 0;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="graph"></div>
+    <script type="module">
+      import { units } from './dist/index.js'
+      console.log(`foo: ${units}`)
+      const wrapper = d3.select('#graph').graphviz()
+      console.log()
+      await units.reduce(
+        (promise, it) =>
+          (async () => {
+            await promise
+            console.log(`it: ${it}`)
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+            wrapper.renderDot(it)
+          })(),
+        Promise.resolve(0)
+      )
+    </script>
+  </body>
+</html>
