@@ -21,17 +21,22 @@
   <body>
     <div id="graph"></div>
     <script type="module">
-      import { units } from './dist/index.js'
+      // config ui for graphviz
       import { delay } from './dist/utils.js'
-      console.log(`foo: ${units}`)
       const wrapper = d3.select('#graph').graphviz()
-      console.log()
-      await units.reduce(
+      let instrumentation = window.location.hash.replace(/^#/g, '')
+      if (instrumentation.length <= 0) {
+        instrumentation = 'latest'
+      }
+      const str = await (await fetch(`scripts/${instrumentation}.json`)).text()
+      const scenes = JSON.parse(str)
+      console.log(scenes.length)
+      await scenes.reduce(
         (promise, it) =>
           (async () => {
             await promise
             console.log(`it: ${it}`)
-            await delay(1000)
+            await delay(200)
             wrapper.renderDot(it)
           })(),
         Promise.resolve(0)
