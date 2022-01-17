@@ -19,11 +19,16 @@
   </head>
 
   <body>
+    <div id="worklist"></div>
     <div id="graph"></div>
     <script type="module">
       // config ui for graphviz
       import { delay } from './dist/utils.js'
-      const wrapper = d3.select('#graph').graphviz()
+      const wrapper = d3
+        .select('#graph')
+        .graphviz()
+        .transition(d3.transition().duration(100).ease(d3.easeLinear))
+
       let instrumentation = window.location.hash.replace(/^#/g, '')
       if (instrumentation.length <= 0) {
         instrumentation = 'latest'
@@ -36,7 +41,7 @@
           (async () => {
             await promise
             console.log(`it: ${it}`)
-            await delay(200)
+            await delay(250)
             wrapper.renderDot(it)
           })(),
         Promise.resolve(0)
