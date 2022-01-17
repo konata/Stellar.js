@@ -1,14 +1,14 @@
 ## Stellar.js
 
-Companion project for `Stellar.scala`, to interactive visualize the pointer analysis process
+Companion project for `Stellar.scala`, interactive visualize the pointer analysis process
 
 ### how to run
 
-points `outputPath` of `Stellar.scala` to directory under `./scripts`
+1. points `outputPath` of `Stellar.scala` to directory `/scripts`
 
-execute `npm run start`
+2. execute `npm run start`
 
-add `#${identifier}` to display for each generated graphviz scripts, `#latest` for the latest generated
+3. navigate to `$url/#${entry_identifier}` to visualize each generated graphviz scripts, `$url/#latest` for the latest generations
 
 
 
